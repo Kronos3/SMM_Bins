@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+   mainPage.html
+
+   Copyright 2016 Andrei Tumbar <atuser@Kronos>
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+   MA 02110-1301, USA.
+
+
+-->
+
+<head>
+<meta charset="utf-8" />
+<script>
+</script>
+<link href="css/roboto.css" "stylesheet">
+<link rel="stylesheet" href="css/materialize.min.css">
+<link href="css/material-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="import" href="bower_components/paper-card/paper-card.html">
+<link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="bower_components/paper-item/paper-item.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+<script src="js/jquery-2.1.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+<script src="js/hammer.min.js" onload="window.Hammer = module.exports;"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script type="text/javascript" src="js/color-thief.min.js"></script>
+<script type="text/javascript" src="js/mustache.min.js"></script>
+<!--script type="text/javascript" src="js/top.js"></script>
+<script type="text/javascript" src="js/nav.js"></script>
+<script type="text/javascript" src="js/play.js"></script>
+<script type="text/javascript" src="js/login.js"></script>
+<script type="text/javascript" src="js/backend2.0.js"></script-->
+<script type="text/javascript" src="js/backend.js"></script>
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div class="title-bar">
+    <button id="close" onclick="close_win()"></button>
+    <button id="max" onclick="maximize()"></button>
+    <button id="min" onclick="minimize()"></button>
+</div>
+<div class="disable" onclick="login_close()"></div>
+<div class="disable-nav" onclick="nav_close()"></div>
+<div class="window" onclick=" $('.song-row-menu').css('display', 'none');$('.playlist-row-menu').css('display', 'none')">
+<iframe class="login" src="http://localhost:8000/oauth/" onLoad="login_load(this.contentWindow.location);"></iframe>
+<div class="queue-disable" onclick="$('.mini-dialog-wrapper').toggleClass ('mini-dialog-open'); $('.queue-music-btn').toggleClass('queue-music-open'); $('.queue-disable').css('display', 'none');"></div>
+<div class="top-bar red card-panel lighten-2 no-shadow">
+    <button id="menu" onclick="openNav()" class="waves-effect  waves-light waves-circle btn-float red lighten-2">
+        <i class="material-icons">menu</i>
+    </button>
+    <div id="nav" class="card-panel">
+        <div class="nav-panel"><a href="#" class="waves-effect" onclick="dis_0(); openNav ();"><i class="nav-icon material-icons">home</i><p>Home</p></a></div>
+        <div class="nav-panel"><a href="#" class="waves-effect" onclick="dis_3()"><i class="nav-icon material-icons">library_music</i><p>Library</p></a></div>
+        <div class="nav-panel"><a href="#" class="waves-effect" onclick="dis_2()"><i class="nav-icon material-icons">queue_music</i><p>Playlists</p></a></div>
+        <div class="nav-panel"><a href="#" class="waves-effect" onclick="moveTo('4')"><i class="nav-icon material-icons">file_upload</i><p>Upload Music</p></a></div>
+        <div class="nav-divider"></div>
+        <div class="nav-panel"><a href="#" class="waves-effect" onclick="moveTo('8')"><i class="nav-icon"><iron-icon class="x-scope iron-icon-0"><svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" class="style-scope iron-icon" style="pointer-events: none; display: block; fill: #424242; width: 24px; height: 24px;"><g class="style-scope iron-icon"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z" class="style-scope iron-icon"></path></g></svg></iron-icon></i><p>Settings</p></a></div>
+        <div class="nav-panel"><a href="#" class="waves-effect" onclick="moveTo('9')"><i class="nav-icon material-icons">help_outline</i><p>Help</p></a></div>
+        <div class="nav-panel"><a href="#" class="waves-effect" onclick="moveTo('10')"><i class="nav-icon material-icons">info_outline</i><p>Information</p></a></div>
+    </div>
+    <div class="top-search-wrapper">
+        <div id="search-color" class="top-search-inner  lighten-3 red">
+            <i class="search-icon material-icons">search</i>
+            <input id="search" class="search" type="text" placeholder="Search">
+        </div>
+    </div>
+    <input id="sign-in" class="sign-in-small" onclick="open_login()" type="submit" value="Sign In"> 
+</div>
+<div class="home-wrapper">
+    <paper-tabs class="home-tabs" selected="0" noink>
+        <paper-tab onclick="dis_0()">Albums</paper-tab>
+        <paper-tab onclick="dis_1()">Artists</paper-tab>
+        <paper-tab onclick="dis_2()">Playlists</paper-tab>
+        <paper-tab onclick="dis_3()">Songs</paper-tab>
+    </paper-tabs>
+</div>
+<div class="loader">
+    <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-yellow">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-green">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+</div>
+<paper-dialog id="playlist" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+    <h2 style="padding: 0">Add song</h2>
+    Choose a playlist<br>
+    <a class="dropdown-button btn" href="#" id="playlist-drop-btn" data-activates="playlist-drop" style="background: #E57373;">Pick playlist</a>
+    <ul id="playlist-drop" class="dropdown-content">
+        <li class="playlist-item truncate"><a href="#">New Playlist</a></li>
+    </ul>
+    <div class="buttons" style="margin-top: 6px; color: #E57373;">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button dialog-confirm autofocus onclick="add_to_playlist()">Add</paper-button>
+    </div>
+</paper-dialog>
+<paper-dialog id="removefplaylist" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+    Remove song from playlist?
+    <div class="buttons" style="margin-top: 6px; color: #E57373;">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button dialog-confirm autofocus onclick="remove_from_playlist()">Remove</paper-button>
+    </div>
+</paper-dialog>
+<paper-dialog id="removedia" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+    Remove song from library?
+    <div class="buttons" style="margin-top: 6px; color: #E57373;">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button dialog-confirm autofocus onclick="remove ()">Remove</paper-button>
+    </div>
+</paper-dialog>
+<paper-dialog id="ytdlconf" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+    Upload this song to your library?
+    <div class="buttons" style="margin-top: 6px; color: #E57373;">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button dialog-confirm autofocus onclick="ytdl ()">Yes</paper-button>
+    </div>
+</paper-dialog>
+<div role="listbox" class="song-row-menu card">
+    <paper-item class="waves-effect" onclick="song_click(window.song_obj_right)">Play song</paper-item>
+    <paper-item class="waves-effect">Get info</paper-item>
+    <paper-item class="waves-effect" >Download</paper-item>
+    <paper-item class="waves-effect" onclick="removedia.open()">Delete</paper-item>
+    <div></div>
+    <paper-item class="waves-effect" onclick="playlist.open()">Add to playlist</paper-item>
+</div>
+<div role="listbox" class="playlist-row-menu card">
+    <paper-item class="waves-effect" onclick="song_click(window.song_obj_right)">Play song</paper-item>
+    <paper-item class="waves-effect">Get info</paper-item>
+    <paper-item class="waves-effect">Download</paper-item>
+    <paper-item class="waves-effect" onclick="removedia.open()" >Delete</paper-item>
+    <div></div>
+    <paper-item class="waves-effect" onclick="removefplaylist.open()">Remove from playlist</paper-item>
+</div>
+<div class="mini-dialog-wrapper">
+    <div class="ytplayer-top">
+        <a id="ytback" onclick="ytback()" class="btn waves-effect waves-light"><i class="material-icons">keyboard_backspace</i></a>
+        <div class="top-search-wrapper">
+            <div id="search-color" class="top-search-inner  lighten-3 red">
+                <i class="search-icon material-icons">search</i>
+                <input id="ytsearch" class="search" type="text" placeholder="Search">
+            </div>
+        </div>
+        <a id="ytdl" onclick="ytdlconf.open()" class="btn waves-effect waves-light"><i class="material-icons">cloud_download</i></a>
+    </div>
+    <paper-spinner class="multi" id="yt-load" active></paper-spinner>
+    <div id="ytpl-wrapper">
+        <div id="ytpl-inner">
+            <div id="ytpl-list"></div>
+            <div id="ytpl-video">
+                <iframe width="620" height="350" src="" id="yt-vid"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-content" id="main">
+    <div class="topcontent-wrapper">
+        <div class="inline-content" id="albums"></div>
+        <div class="inline-content" id="artists"></div>
+        <div class="inline-content" id="playlists"></div>
+        <div class="inline-content" id="songs"></div>
+    </div>
+    <div class="other-buff" onscroll="scrolled ()"></div>
+</div>
+
+<div class="card-panel control-bar">
+    <paper-slider id="song-time" style="display:none" value="0" secondary-progress="0"></paper-slider>
+    <div id="song-info-template"></div>
+    <div class="control-middle">
+        <button id="repeat" onclick="repeatf()" data-position="top" data-tooltip="Repeat" class="tooltipped waves-effect waves-light waves-circle btn waves-red white lighten-2 control-button">
+            <i class="material-icons">repeat</i>
+        </button>
+        <button id="back" onclick="prev_song()" data-position="top" data-tooltip="Skip Back" class="tooltipped waves-effect waves-light waves-circle waves-red white lighten-2 control-button btn disabled">
+            <i class="material-icons">skip_previous</i>
+        </button>
+        <button id="play" onclick="playf()" data-position="top" data-tooltip="Play/Pause" class="tooltipped waves-effect waves-light waves-circle waves-light red lighten-2 control-button btn disabled">
+            <i class="material-icons">play_arrow</i>
+        </button>
+        <button id="skip" onclick="next_song()" data-position="top" data-tooltip="Skip Next" class="tooltipped waves-effect waves-light waves-circle waves-red white lighten-2 control-button btn disabled">
+            <i class="material-icons">skip_next</i>
+        </button>
+        <button id="shuffle" onclick="shufflef()" data-position="top" data-tooltip="Shuffle" class="tooltipped waves-effect waves-light waves-circle btn waves-red white lighten-2 control-button">
+            <i class="material-icons">shuffle</i>
+        </button>
+    </div>
+    <div class="song-vol-wrapper"><i class="material-icons vol-down">volume_down</i><paper-slider id="song-vol" value="50" pin></paper-slider><i class="material-icons" style="margin-left: 30px">volume_up</i></div>
+    <div class="queue-music-btn waves-effect" onclick="$('.mini-dialog-wrapper').toggleClass ('mini-dialog-open'); $(this).toggleClass('queue-music-open'); $('.queue-disable').css('display', 'block');"><i class="fa fa-youtube-play"></i></div>
+</div>
+</div>
+</body>
+</html>
